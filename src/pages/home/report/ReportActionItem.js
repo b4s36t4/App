@@ -55,7 +55,6 @@ import ReportActionItemDraft from './ReportActionItemDraft';
 import TaskPreview from '../../../components/ReportActionItem/TaskPreview';
 import TaskAction from '../../../components/ReportActionItem/TaskAction';
 import TaskView from '../../../components/ReportActionItem/TaskView';
-import MoneyReportView from '../../../components/ReportActionItem/MoneyReportView';
 import * as Session from '../../../libs/actions/Session';
 import {hideContextMenu} from './ContextMenu/ReportActionContextMenu';
 
@@ -161,10 +160,12 @@ function ReportActionItem(props) {
             return;
         }
 
-        if (_.contains([CONST.MODERATION.MODERATOR_DECISION_PENDING_HIDE, CONST.MODERATION.MODERATOR_DECISION_HIDDEN], latestDecision)) {
-            setIsHidden(true);
-        }
         setModerationDecision(latestDecision);
+        if(!_.contains([CONST.MODERATION.MODERATOR_DECISION_APPROVED, CONST.MODERATION.MODERATOR_DECISION_PENDING], latestDecision)){
+            setIsHidden(true)
+            return
+        }
+        setIsHidden(false)
     }, [latestDecision, props.action.actionName]);
 
     const toggleContextMenuFromActiveReportAction = useCallback(() => {
@@ -321,6 +322,7 @@ function ReportActionItem(props) {
                             index={props.index}
                             ref={textInputRef}
                             report={props.report}
+                            p={"mahesh"}
                             // Avoid defining within component due to an existing Onyx bug
                             preferredSkinTone={props.preferredSkinTone}
                             shouldDisableEmojiPicker={
@@ -419,14 +421,6 @@ function ReportActionItem(props) {
         if (ReportUtils.isTaskReport(props.report)) {
             return (
                 <TaskView
-                    report={props.report}
-                    shouldShowHorizontalRule={!props.isOnlyReportAction}
-                />
-            );
-        }
-        if (ReportUtils.isExpenseReport(props.report) || ReportUtils.isIOUReport(props.report)) {
-            return (
-                <MoneyReportView
                     report={props.report}
                     shouldShowHorizontalRule={!props.isOnlyReportAction}
                 />
