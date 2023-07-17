@@ -161,11 +161,11 @@ function ReportActionItem(props) {
         }
 
         setModerationDecision(latestDecision);
-        if(!_.contains([CONST.MODERATION.MODERATOR_DECISION_APPROVED, CONST.MODERATION.MODERATOR_DECISION_PENDING], latestDecision)){
-            setIsHidden(true)
-            return
+        if (!_.contains([CONST.MODERATION.MODERATOR_DECISION_APPROVED, CONST.MODERATION.MODERATOR_DECISION_PENDING], latestDecision)) {
+            setIsHidden(true);
+            return;
         }
-        setIsHidden(false)
+        setIsHidden(false);
     }, [latestDecision, props.action.actionName]);
 
     const toggleContextMenuFromActiveReportAction = useCallback(() => {
@@ -322,7 +322,7 @@ function ReportActionItem(props) {
                             index={props.index}
                             ref={textInputRef}
                             report={props.report}
-                            p={"mahesh"}
+                            p={'mahesh'}
                             // Avoid defining within component due to an existing Onyx bug
                             preferredSkinTone={props.preferredSkinTone}
                             shouldDisableEmojiPicker={
