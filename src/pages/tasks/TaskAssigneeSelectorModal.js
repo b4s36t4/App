@@ -193,9 +193,7 @@ function TaskAssigneeSelectorModal(props) {
     return (
         <ScreenWrapper
             includeSafeAreaPaddingBottom={false}
-            onEntryTransitionEnd={() => {
-                optionRef.current && optionRef.current.textInput.focus();
-            }}
+            onEntryTransitionEnd={() => optionRef.current && optionRef.current.textInput.focus()}
         >
             {({didScreenTransitionEnd, safeAreaPaddingBottomStyle}) => (
                 <>
