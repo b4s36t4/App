@@ -261,8 +261,8 @@ function ComposerWithSuggestions({
             const selectionSpaceLength = shouldAddTrailSpace ? CONST.SPACE_LENGTH : 0;
             updateComment(ComposerUtils.insertText(commentRef.current, selection, updatedText));
             setSelection((prevSelection) => ({
-                start: prevSelection.start + text.length + selectionSpaceLength,
-                end: prevSelection.start + text.length + selectionSpaceLength,
+                start: prevSelection.start + updatedText.length + selectionSpaceLength,
+                end: prevSelection.start + updatedText.length + selectionSpaceLength,
             }));
         },
         [selection, updateComment],
