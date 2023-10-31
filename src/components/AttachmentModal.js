@@ -191,6 +191,8 @@ function AttachmentModal(props) {
             sourceURL = addEncryptedAuthTokenToURL(sourceURL);
         }
 
+        console.log(file, 'file..');
+
         fileDownload(sourceURL, file.name);
 
         // At ios, if the keyboard is open while opening the attachment, then after downloading

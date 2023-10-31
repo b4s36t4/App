@@ -1,7 +1,7 @@
 import lodashCompact from 'lodash/compact';
 import PropTypes from 'prop-types';
 import React, {useCallback, useMemo, useRef, useState} from 'react';
-import {Alert, View} from 'react-native';
+import {Alert, Platform, View} from 'react-native';
 import RNFetchBlob from 'react-native-blob-util';
 import RNDocumentPicker from 'react-native-document-picker';
 import {launchImageLibrary} from 'react-native-image-picker';
@@ -72,6 +72,7 @@ const documentPickerOptions = {
  * @return {Promise}
  */
 const getDataForUpload = (fileData) => {
+    console.log(fileData, 'data...');
     const fileName = fileData.fileName || fileData.name || 'chat_attachment';
     const fileResult = {
         name: FileUtils.cleanFileName(fileName),
@@ -81,6 +82,10 @@ const getDataForUpload = (fileData) => {
         uri: fileData.fileCopyUri || fileData.uri,
         size: fileData.fileSize || fileData.size,
     };
+
+    if (Platform.OS === 'android') {
+        fileResult.uri = fileData.uri;
+    }
 
     if (fileResult.size) {
         return Promise.resolve(fileResult);
@@ -241,6 +246,7 @@ function AttachmentPicker({type, children, shouldHideCameraOption}) {
 
             return getDataForUpload(fileData)
                 .then((result) => {
+                    console.log(result, 'result?');
                     completeAttachmentSelection.current(result);
                 })
                 .catch((error) => {

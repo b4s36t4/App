@@ -213,6 +213,7 @@ function ReceiptSelector({route, report, iou, transactionID, isInTabNavigator, s
                                 openPicker({
                                     onPicked: (file) => {
                                         const filePath = file.uri;
+                                        console.log(filePath, 'path?', file);
                                         IOU.setMoneyRequestReceipt(filePath, file.name);
 
                                         if (transactionID) {
